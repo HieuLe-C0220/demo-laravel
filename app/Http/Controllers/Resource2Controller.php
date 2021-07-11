@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ResourceController extends Controller
+class Resource2Controller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +13,8 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        // return view('article',['name' => 'Le Trung Hieu']);
-        // return view('article')->with('name', 'Le Trung Hieu');
-        return view('include1');
+        // return view('extends1');
+        return view('users');
     }
 
     /**

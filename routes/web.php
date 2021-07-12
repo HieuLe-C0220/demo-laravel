@@ -7,6 +7,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ResourceController;
 
 use App\Http\Controllers\Resource2Controller;
+
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,3 +40,5 @@ Route::group(['prefix' => '/admin'],function(){
 });
 
 Route::resource('/article2', Resource2Controller::class);
+
+Route::resource('/post', PostController::class);

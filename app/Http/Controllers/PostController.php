@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -16,7 +17,7 @@ class PostController extends Controller
     {
         // $posts = Post::paginate(2);
         
-        //query builder, phai ket thuc bang get thi moi query den db
+        //query builder, phai ket thuc bang get() thi moi query den db
         // $posts = Post::where('id', '>', 1)->where('id' , '<=', 5)->get();
         // foreach ($posts as $post) {
         //     echo $post->title;
@@ -24,7 +25,20 @@ class PostController extends Controller
         // echo $posts->links();
         // $posts = Post::where('id', '>', 1)->where('id' , '<=', 5)->first();
         // echo $posts->title;
+
+        // $post = Post::find(1);
+        // $post->delete();
         
+        // $post = Post::find(1);
+        // echo $post->title;
+        // echo $post->category->name;
+
+        $category = Category::find(1);
+        $posts = $category->posts; // lay tat ca bai viet
+        // $posts = $category->posts()->limit(5)->get(); //lay theo gioi han, cu the la 5 record
+        foreach ($posts as $post) {
+            echo $post->title;
+        }
     }
 
     /**

@@ -14,7 +14,17 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        // $posts = Post::paginate(2);
+        
+        //query builder, phai ket thuc bang get thi moi query den db
+        // $posts = Post::where('id', '>', 1)->where('id' , '<=', 5)->get();
+        // foreach ($posts as $post) {
+        //     echo $post->title;
+        // }
+        // echo $posts->links();
+        // $posts = Post::where('id', '>', 1)->where('id' , '<=', 5)->first();
+        // echo $posts->title;
+        
     }
 
     /**
@@ -24,7 +34,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('create_post');
     }
 
     /**
@@ -35,7 +45,24 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Cach 1: them du lieu vao db
+        // $post = new Post;
+        // $post->title = $request->title;
+        // $post->content = $request->content;
+        // $post->save();
+
+        // Cach 2 them du lieu vao db
+        // dd( $request->all() ); // Kiem tra xem $request->all hien thi cai gi
+        // $post = new Post;
+        // $post->fill( $request-> all() );
+        // $post->save();
+
+        // Cach 3 them du lieu vao db
+        $post = Post::create([
+            'title' => $request->title,
+            'content' => $request->content
+        ]);
+        $post->save();
     }
 
     /**
@@ -69,9 +96,22 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        // Doi voi tham so la $id
+        // Post::whereId($id)->update([
+        //     'title' => $request->title,
+        //     'content' => $request->content
+        // ]);
+
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content
+        ]);
+
+        // $post->fill( $request-> all() );
+        // $post->save();
+        return view('edit_post')->with('post', $post);
     }
 
     /**

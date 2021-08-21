@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
+use App\Http\Request\StorePostRequest;
 
 class PostController extends Controller
 {
@@ -15,6 +19,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        // $post = new Post();
+        // $post->title = 'Tiền điện tăng đột biến';
+        // $post->content = 'Do quạt chạy không ngừng nghỉ';
+        // $post->category_id = '3';
+        // $post->save();
+
         // $posts = Post::paginate(2);
         
         //query builder, phai ket thuc bang get() thi moi query den db
@@ -33,12 +43,28 @@ class PostController extends Controller
         // echo $post->title;
         // echo $post->category->name;
 
-        $category = Category::find(1);
-        $posts = $category->posts; // lay tat ca bai viet
+        // $category = Category::find(1);
+        // $posts = $category->posts; // lay tat ca bai viet
         // $posts = $category->posts()->limit(5)->get(); //lay theo gioi han, cu the la 5 record
-        foreach ($posts as $post) {
-            echo $post->title;
-        }
+        // foreach ($posts as $post) {
+        //     echo $post->title;
+        // }
+        
+        // Truy van n-n
+        // $post = Post::find(1);
+        // $tags = $post->tag;
+        // echo $post->title;
+        // foreach ($tags as $tag) {
+        //     echo $tag->name;
+        // }
+
+        // Tao record con tu cha
+        // $category = Category::find(2);
+        // $category->posts()->create([
+        //     'title' => 'blog 3',
+        //     'content' => 'Quyết tâm dập dịch'
+        // ]);
+
     }
 
     /**
@@ -48,7 +74,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('create_post');
+        $categories = Category::all();
+        return view('create_post')->with('categories', $categories);
     }
 
     /**
@@ -57,8 +84,8 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    // public function store(Request $request)
+    // {
         // Cach 1: them du lieu vao db
         // $post = new Post;
         // $post->title = $request->title;
@@ -72,13 +99,23 @@ class PostController extends Controller
         // $post->save();
 
         // Cach 3 them du lieu vao db
-        $post = Post::create([
-            'title' => $request->title,
-            'content' => $request->content
-        ]);
-        $post->save();
-    }
+        // $post = Post::create([
+        //     'title' => $request->title,
+        //     'content' => $request->content
+        // ]);
 
+    //     $request->validate([
+    //         'title' => 'max:25|min:2'
+    //     ]);
+
+    //     $post = new Post;
+    //     $post->fill( $request-> all() );
+    //     $post->save();
+    // }
+    public function store(StorePostRequest $request) 
+    {
+
+    }
     /**
      * Display the specified resource.
      *

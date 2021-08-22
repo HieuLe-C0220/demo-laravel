@@ -9,6 +9,9 @@ use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\Resource2Controller;
 
 use App\Http\Controllers\PostController;
+
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\VideoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,4 +44,7 @@ Route::group(['prefix' => '/admin'],function(){
 
 Route::resource('/article2', Resource2Controller::class);
 
-Route::resource('/post', PostController::class);
+Route::resource('/post', PostController::class)->names('post');
+
+Route::resource('/category', CategoryController::class)->names('category');
+Route::resource('/video', VideoController::class)->names('video');

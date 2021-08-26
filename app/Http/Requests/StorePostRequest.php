@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\rules\CauVanHoa;
+use App\rules\QuanHopLe;
 
 class StorePostRequest extends FormRequest
 {
@@ -24,7 +26,25 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'max:25|min:2'
+            'title' => [
+                'required',
+                'max:25',
+                'min:2',
+                new CauVanHoa
+            ],
+            'category_id' => 'required|exists:categories,id',
+            'city_id' =>'required|number',
+            'quan_id' =>[
+                'required',
+                'number',
+                new QuanHopLe($this)
+            ]
+        ];
+    }
+
+    public function messages() {
+        return[
+            'title.max' => 'Tiêu đề không được dài quá'
         ];
     }
 }

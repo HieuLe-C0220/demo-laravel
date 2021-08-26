@@ -13,6 +13,9 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $table = 'baiviet';
+
     protected $fillable = ['title', 'content', 'category_id'];
 
     public function category() {

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
-use App\Http\Request\StorePostRequest;
+use App\Http\Requests\StorePostRequest;
 
 class PostController extends Controller
 {
@@ -35,7 +35,8 @@ class PostController extends Controller
         // echo $posts->links();
         // $posts = Post::where('id', '>', 1)->where('id' , '<=', 5)->first();
         // echo $posts->title;
-
+        
+        //Xoá bài viết có id được chọn
         // $post = Post::find(1);
         // $post->delete();
         
@@ -45,7 +46,7 @@ class PostController extends Controller
 
         // $category = Category::find(1);
         // $posts = $category->posts; // lay tat ca bai viet
-        // $posts = $category->posts()->limit(5)->get(); //lay theo gioi han, cu the la 5 record
+        // $posts = $category->posts()->limit(10)->get(); //lay theo gioi han, cu the la 5 record
         // foreach ($posts as $post) {
         //     echo $post->title;
         // }
@@ -64,7 +65,9 @@ class PostController extends Controller
         //     'title' => 'blog 3',
         //     'content' => 'Quyết tâm dập dịch'
         // ]);
-
+        
+        $post = Post::find(5);
+        return response()->json($post);
     }
 
     /**
@@ -114,7 +117,12 @@ class PostController extends Controller
     // }
     public function store(StorePostRequest $request) 
     {
-
+        $post = new Post;
+        $newData = $request->all();
+        print_r($newData);die;
+        $newData->title = base64_encode($request->all()->title);
+        $post->fill($newData);
+        $post->save();
     }
     /**
      * Display the specified resource.
